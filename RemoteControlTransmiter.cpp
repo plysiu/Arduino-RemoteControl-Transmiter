@@ -3,6 +3,11 @@
 #include <Signal.h>
 #include <Button.h>
 
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x20 for a 16 chars and 2 line display
+
 Signal a = Signal(A0);
 Signal b = Signal(A1);
 Signal c = Signal(A2);
@@ -12,6 +17,8 @@ Button calibrate = Button(7, PULLUP);
 
 void setup() {
 	Serial.begin(9600);
+	lcd.init();
+	lcd.backlight();
 }
 
 void loop() {
@@ -26,6 +33,17 @@ void loop() {
 	b.read();
 	c.read();
 	d.read();
+
+	lcd.setCursor(0,0);
+	lcd.print(a.getTiltRod());
+	lcd.setCursor(0,4);
+	lcd.print(b.getTiltRod());
+	lcd.setCursor(1,0);
+	lcd.print(c.getTiltRod());
+	lcd.setCursor(1,4);
+	lcd.print(d.getTiltRod());
+
+
 
 	Serial.print(a.getMinValue());
 	Serial.print("-");
