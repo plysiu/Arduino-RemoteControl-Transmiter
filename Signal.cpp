@@ -48,6 +48,7 @@ void Signal::read() {
 int Signal::getValue() {
 	return this->value;
 }
+
 void Signal::setValue(int _value) {
 	this->value = _value;
 }
@@ -78,7 +79,6 @@ int8_t Signal::getTiltRod() {
 	return RemoteControl::convertAnalogValue(this->getValue(),
 			this->getMinValue(), this->getCenterValue(), this->getMaxValue());
 }
-
 Signal::~Signal() {
 }
 

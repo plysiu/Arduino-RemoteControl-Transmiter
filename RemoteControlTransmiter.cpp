@@ -32,7 +32,7 @@ void setup() {
 	vw_set_rx_pin(receive_pin);
 	vw_set_ptt_pin(transmit_en_pin);
 	vw_set_ptt_inverted(true); // Required for DR3100
-	vw_setup(12000);       // Bits per sec
+	vw_setup(8000);       // Bits per sec
 
 }
 
@@ -71,7 +71,7 @@ unsigned long previousMillis = 0;
 const long interval = 125;
 
 unsigned long int timestamp = 0;
-
+int8_t lastValues[4];
 void loop() {
 	if (button1.isPressed()) {
 		Signal::setCalibrationOn();
@@ -86,10 +86,14 @@ void loop() {
 
 	std::vector<RemoteControl::Signal> signals;
 
-	signals.push_back( { 0, a.getTiltRod() });
-	signals.push_back( { 1, b.getTiltRod() });
-	signals.push_back( { 2, c.getTiltRod() });
-	signals.push_back( { 3, d.getTiltRod() });
+		signals.push_back( { 0, a.getTiltRod() });
+
+		signals.push_back( { 1, b.getTiltRod() });
+
+		signals.push_back( { 2, c.getTiltRod() });
+
+		signals.push_back( { 3, d.getTiltRod() });
+
 	send(signals);
 
 	unsigned long currentMillis = millis();
